@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        table,
+        td {
+            border: 1px solid #333;
+        }
+
+        thead,
+        tfoot {
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гулдер.kz - Flowers</title>
+</head>
+<body>
+    <form action="/flowers" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+        <br><br>
+        <label for="count">Count:</label>
+        <input type="number" name="count" id="count" required>
+        <br><br>
+        <label for="cost">Cost:</label>
+        <input type="number" name="cost" id="cost" required>
+        <br><br>
+        <button type="submit">Add new flower</button>
+        <br><br>
+    </form>
+    <br><br>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="1">Name</th>
+                <th colspan="1">Count</th>
+                <th colspan="1">Cost</th>
+                <th colspan="1">Cart</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for flower in flowers %}
+            <tr>
+                <td>{{ flower.name }}</td>
+                <td>{{ flower.count }}</td>
+                <td>{{ flower.cost }}</td>
+                <td>
+                    <form action="/cart/items" method="post">
+                        <input type="hidden" name="flower_id" value="{{ flower.id }}">
+                        <button type="submit">Добавить в корзину</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br><br>
+    <a href="/cart/items">
+        <button>
+            Cart
+        </button>
+    </a>
+</body>
+</html>
